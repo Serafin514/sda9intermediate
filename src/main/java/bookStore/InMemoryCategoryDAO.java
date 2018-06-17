@@ -1,5 +1,7 @@
 package bookStore;
 
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
+
 import java.io.IOException;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
@@ -7,10 +9,11 @@ import java.nio.file.Paths;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 
-public class InMemoryCategoryDAO implements CategorySource{
+public class InMemoryCategoryDAO implements CategorySource {
     //DAO DATA ACCESS OBJECT
     //DTO DATA TRANSFER OBJECT
 
@@ -33,7 +36,11 @@ public class InMemoryCategoryDAO implements CategorySource{
     }
 
     private List<Category> initializeCategory() {
+        List<String> linesFormFile = readDataFromFile();
+        return populateCategorys(linesFormFile);
+    }
 
+    public List<String> readDataFromFile() {
         List<String> linesFormFile = null;
         try {
             linesFormFile = Files.readAllLines
@@ -41,7 +48,7 @@ public class InMemoryCategoryDAO implements CategorySource{
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return populateCategorys(linesFormFile);
+        return linesFormFile;
     }
 
     private List<Category> populateCategorys(List<String> linesFormFile) {
@@ -86,21 +93,25 @@ public class InMemoryCategoryDAO implements CategorySource{
 
     @Override
     public void updateCategory(Category category) {
-
+        throw new NotImplementedException();
     }
 
     @Override
     public List<Category> findCategoriesByName(String name) {
-        return null;
+        return categoryInMemorys.stream()
+                .filter(category -> category.getName().equals(name))
+                .collect(Collectors.toList());
     }
 
     @Override
     public List<Category> getCategories() {
-        return null;
+        return categoryInMemorys;
     }
 
     @Override
-    public Category findCategoryById() {
-        return null;
+    public Optional<Category> findCategoryById(Integer id) {
+        return categoryInMemorys.stream()
+                .filter(category -> category.getId().equals(id))
+                .findFirst();
     }
 }

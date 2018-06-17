@@ -8,7 +8,8 @@ import java.util.List;
 
 class InMemoryCategoryDAOTest {
 
-    private InMemoryCategoryDAO inMemoryCategoryDAO= Mockito.mock(InMemoryCategoryDAO.class);
+    //private InMemoryCategoryDAO inMemoryCategoryDAO = Mockito.mock(InMemoryCategoryDAO.class);
+
     @Test
     void shouldReturnListOfCategoriesFromFile() {
         //given
@@ -37,10 +38,10 @@ class InMemoryCategoryDAOTest {
         Integer actualParentId3 = cat3.getParentsId();
         String actualName3 = cat3.getName();
         //then
-        Assertions.assertEquals(expectedParentId1,actualParentId1);
-        Assertions.assertEquals(expectedParentId3,actualParentId3);
-        Assertions.assertEquals(expectedNameId1,actualName1);
-        Assertions.assertEquals(expectedNameId3,actualName3);
+        Assertions.assertEquals(expectedParentId1, actualParentId1);
+        Assertions.assertEquals(expectedParentId3, actualParentId3);
+        Assertions.assertEquals(expectedNameId1, actualName1);
+        Assertions.assertEquals(expectedNameId3, actualName3);
     }
 
 }
