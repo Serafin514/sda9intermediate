@@ -10,8 +10,29 @@ import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 
-public class InMemoryCategoryDAO {
-    public List<Category> initializeCategory() {
+public class InMemoryCategoryDAO implements CategorySource{
+    //DAO DATA ACCESS OBJECT
+    //DTO DATA TRANSFER OBJECT
+
+    private static InMemoryCategoryDAO instance;
+    private List<Category> categoryInMemorys;
+
+    private InMemoryCategoryDAO() {
+        categoryInMemorys = initializeCategory();
+    }
+
+    public static InMemoryCategoryDAO getInstance() {
+        if (instance == null) {//sprawdzamy na wydajnosc pracy wielowatkowej
+            synchronized (InMemoryCategoryDAO.class) {
+                if (instance == null) {
+                    instance = new InMemoryCategoryDAO();
+                }
+            }
+        }
+        return instance;
+    }
+
+    private List<Category> initializeCategory() {
 
         List<String> linesFormFile = null;
         try {
@@ -38,8 +59,8 @@ public class InMemoryCategoryDAO {
 
     private void populateRecursive(int level, Map<Integer, List<Category>> categoryMap) {
         List<Category> categoryList = categoryMap.get(level);
-        if (categoryList==null){
-            return ;
+        if (categoryList == null) {
+            return;
         }
         for (Category categoryFor : categoryList) {
             //categoryFor.setName(categoryFor.getName().trim());
@@ -63,4 +84,23 @@ public class InMemoryCategoryDAO {
         return category.getName().startsWith(" ") ? category.getName().split("\\S")[0].length() : 0;
     }
 
+    @Override
+    public void updateCategory(Category category) {
+
+    }
+
+    @Override
+    public List<Category> findCategoriesByName(String name) {
+        return null;
+    }
+
+    @Override
+    public List<Category> getCategories() {
+        return null;
+    }
+
+    @Override
+    public Category findCategoryById() {
+        return null;
+    }
 }
