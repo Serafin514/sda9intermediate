@@ -10,4 +10,8 @@ public class Category {
     private String name;
     private Integer parentsId;
 
+    public Category(Integer id, String name) {
+        this.id = id;
+        this.name = name;
+    }
 }

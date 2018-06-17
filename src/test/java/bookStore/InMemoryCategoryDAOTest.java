@@ -5,16 +5,14 @@ import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 class InMemoryCategoryDAOTest {
     @Test
     void shouldReturnListOfCategoriesFromFile() {
         //given
         InMemoryCategoryDAO inMemoryCategoryDAO = new InMemoryCategoryDAO();
         Category cat1;
-        Integer expectedParentId1 = 1;
-        Integer expectedParentId3 = 3;
+        Integer expectedParentId1 = null;
+        Integer expectedParentId3 = 2;
         Category cat3;
         String expectedNameId1 = "Książki";
         String expectedNameId3 = "Fantastyka";
